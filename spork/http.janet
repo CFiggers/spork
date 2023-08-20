@@ -62,7 +62,7 @@
                  key2 b})
              :error))
       (break))
-    (set last-index (length buf))
+    (set last-index (max 0 (- (length buf) 4)))
     (ev/read conn chunk-size buf))
   head)
 
@@ -74,7 +74,7 @@
       :kchar (+ :qchar (* (not (set "&=;")) '1))
       :vchar (+ :qchar (* (not (set "&;")) '1))
       :key (accumulate (some :kchar))
-      :value (accumulate (some :vchar))
+      :value (accumulate (any :vchar))
       :entry (* :key (+ (* "=" :value) (constant true)) (+ (set ";&") -1))
       :main (/ (any :entry) ,table)}))
 
@@ -103,7 +103,7 @@
     (def fullpath (get head :path))
     (def qloc (string/find "?" fullpath))
     (def path (if qloc (string/slice fullpath 0 qloc) fullpath))
-    (def qs (if qloc (string/slice fullpath qloc) nil))
+    (def qs (if qloc (string/slice fullpath (inc qloc)) nil))
     (put head :route path)
     (put head :query-string qs)
     (when qs
