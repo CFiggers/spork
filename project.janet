@@ -60,3 +60,10 @@
 (declare-native
   :name "spork/base64"
   :source @["src/base64.c"])
+
+(declare-native
+  :name "spork/csv"
+  :source @["src/csv.c"]
+  :cflags @["-std=gnu11" "-Icode" "-lc"]
+  :ldflags @["-pthread" "-ldl" "-lm" "-latomic"]
+  :headers @["deps/zpl/zpl.h"])
