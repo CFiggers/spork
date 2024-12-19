@@ -356,8 +356,8 @@
   Subtract two well-formed `date`s (`later-date` and `earlier-date`),
   returning a new struct that will pass the `date?` validation function.
 
-  Not commutative, i.e., order matters. If `earlier-date` precedes 
-  `later-date`, the resulting duration will be negative.
+  Not commutative, i.e., order matters. If `later-date` precedes 
+  `earlier-date`, the resulting duration will be negative.
   ``
   [later-date earlier-date]
   (var later (struct/to-table later-date))
